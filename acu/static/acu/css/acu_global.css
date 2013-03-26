@@ -1,0 +1,38 @@
+#body-container{
+    width: 980px;
+    min-height: 800px;
+    background-color: #bbbbbb;
+    margin: auto;
+    padding: 10px;
+}
+
+#header-container{
+    height: 200px;
+    background-color: #417690;
+    padding: 10px;
+}
+
+#header-menu{
+    margin-top: 160px;
+}
+
+#tools{
+    height: 20px;
+    margin-top: 180px;
+}
+
+#breadcrumbs-container{
+    height: 20px;
+    padding: 10px;
+}
+
+#content_container{
+    min-height: 500px;
+    background-color: #FFF;
+    padding: 10px;
+}
+
+a.menu-item{
+    color: #fff;
+    text-decoration: none;
+}

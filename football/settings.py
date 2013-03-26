@@ -106,6 +106,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'football.urls'
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'football.wsgi.application'
 

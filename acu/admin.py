@@ -8,6 +8,7 @@ class BaseAdmin(admin.ModelAdmin):
     pass
     #list_display = ('id', 'goal', 'method', 'rate_type', 'base_value')
 
+admin.site.register(Contact, BaseAdmin)
 admin.site.register(Player, BaseAdmin)
 admin.site.register(Team, BaseAdmin)
 admin.site.register(Event, BaseAdmin)

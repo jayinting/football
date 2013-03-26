@@ -3,6 +3,7 @@ __author__ = 'jay'
 import datetime
 
 from django.db import models
+from django.contrib.auth.models import User
 
 from acu import constants as acuCon
 
@@ -12,32 +13,45 @@ class ACUBaseModel(models.Model):
         abstract = True
         app_label = 'acu'
 
-class Player(ACUBaseModel):
+class Contact(ACUBaseModel):
 
     user = models.OneToOneField('auth.User')
-    first_name = models.CharField(max_length=128, blank=True, null=True)
-    last_name = models.CharField(max_length=128, blank=True, null=True)
-    gender = models.CharField(max_length=16,choices=acuCon.GENDER_CHOICES,default=acuCon.GENDER_MALE)
-    age = models.IntegerField(default=18)
-    teams = models.ManyToManyField('acu.Team', blank=True, null=True)
+    type = models.CharField(max_length=64, choices= acuCon.CONTACT_TYPE_CHOICES, default=acuCon.CONTACT_TYPE_PLAYER)
 
     def __unicode__(self):
         """Gets string representation of the model instance"""
-        return "Player:%s - %s %s" % (self.id,self.first_name,self.last_name)
+        return "%s %s" % (self.user.first_name,self.user.last_name)
+
+    class Meta:
+        app_label = 'acu'
+        verbose_name = "Contact"
+        verbose_name_plural = "Contacts"
+
+class Player(ACUBaseModel):
+
+    contact = models.ForeignKey('acu.Contact')
+    event = models.ForeignKey('acu.Event')
+    team = models.ForeignKey('acu.Team')
+
+    def __unicode__(self):
+        """Gets string representation of the model instance"""
+        return "%s - %s" % (self.team.name,self.contact)
 
     class Meta:
         app_label = 'acu'
         verbose_name = "Player"
         verbose_name_plural = "Players"
+        unique_together = ("contact", "team")
 
 class Team(ACUBaseModel):
 
     name = models.CharField(max_length=255, blank=True, null=True)
+    event = models.ForeignKey('acu.Event')
     description = models.CharField(max_length=2048, blank=True, null=True)
 
     def __unicode__(self):
         """Gets string representation of the model instance"""
-        return "Team:%s - %s" % (self.id,self.name)
+        return "%s" % (self.name)
 
     class Meta:
         app_label = 'acu'
@@ -47,13 +61,14 @@ class Team(ACUBaseModel):
 class Event(ACUBaseModel):
 
     name = models.CharField(max_length=255, blank=True, null=True)
+    type = models.CharField(max_length=64, choices=acuCon.EVENT_TYPE_CHOICES, default=acuCon.EVENT_TYPE_REGULAR)
     description = models.CharField(max_length=2048, blank=True, null=True)
     start_date = models.DateField(default=datetime.datetime.today())
     end_date = models.DateField(default=datetime.datetime.today())
 
     def __unicode__(self):
         """Gets string representation of the model instance"""
-        return "Event:%s - %s" % (self.id,self.name)
+        return "%s" % (self.name)
 
     class Meta:
         app_label = 'acu'
@@ -62,15 +77,14 @@ class Event(ACUBaseModel):
 
 class Game(ACUBaseModel):
 
-    game_date = models.DateField(default=datetime.datetime.today())
     event = models.ForeignKey('acu.Event')
-    game_type = models.CharField(max_length=64, choices=acuCon.GAME_TYPE_CHOICES, default=acuCon.GAME_TYPE_REGULAR)
+    game_date = models.DateField(default=datetime.datetime.today())
     home_team = models.ForeignKey('acu.Team', related_name='home_game_set')
     away_team = models.ForeignKey('acu.Team', related_name='away_game_set')
 
     def __unicode__(self):
         """Gets string representation of the model instance"""
-        return "Game:%s - %s:%s" % (self.id,self.event.name,self.game_date)
+        return "%s - %s" % (self.event.name,self.game_date)
 
     class Meta:
         app_label = 'acu'
@@ -85,7 +99,7 @@ class Stat(ACUBaseModel):
 
     def __unicode__(self):
         """Gets string representation of the model instance"""
-        return "Stat:%s - %s %s Game:%s" % (self.id,self.player.first_name,self.player.last_name,self.game)
+        return "Stat(%s):%s - %s" % (self.id,self.player,self.game)
 
     class Meta:
         app_label = 'acu'

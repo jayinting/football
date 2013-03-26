@@ -1,0 +1,94 @@
+{% extends "global_base.html" %}
+{% load url from future %}
+
+{% block base-css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acu/blueprint/ie.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acu/blueprint/screen.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acu/css/ui-darkness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acu/css/jmenu/jMenu.jquery.css" />
+
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acu/css/acu_global.css" />
+{% endblock %}
+
+{% block base-js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}acu/js/jquery.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}acu/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}acu/js/jMenu.jquery.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu").jMenu();
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div id="body-container" class="container">
+        <div id="header-container" class="container">
+            <div id="header-menu" class="span-8 append-12">
+                <ul id="menu">
+                    <li>
+                        <a class="fNiv menu-item" href="{% url 'acu:Index_View' %}">Home</a>
+                    </li>
+                    <li>
+                        <a class="fNiv menu-item">Events</a>
+                        <ul>
+                            <li class="arrow"></li>
+                            <li><a class="menu-item">Test1</a></li>
+                            <li><a class="menu-item">Test2</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="fNiv menu-item">Teams</a>
+                        <ul>
+                            <li class="arrow"></li>
+                            <li><a class="menu-item">Test1</a></li>
+                            <li><a class="menu-item">Test2</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="fNiv menu-item">Games</a>
+                        <ul>
+                            <li class="arrow"></li>
+                            <li><a class="menu-item">Test1</a></li>
+                            <li><a class="menu-item">Test2</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="fNiv menu-item">Players</a>
+                        <ul>
+                            <li class="arrow"></li>
+                            <li><a class="menu-item" href="{% url 'acu:CreatePlayer_View' %}">Create Player</a></li>
+                            <li><a class="menu-item">Test2</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="tools" class="span-4 last">
+                <div style="float: left;">
+                    {% if user.is_authenticated %}
+                        <span>Hello, {{ user.first_name }}</span>
+                    {% endif %}
+                </div>
+                <div style="float: right;">
+                    {% if user.is_authenticated %}
+                        <a href="/logout" class="menu-item">Logout</a>
+                    {% else %}
+                        <a href="/login" class="menu-item">Login</a>
+                    {% endif %}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div id="breadcrumbs-container" class="container">
+            {% block breadcrumbs %}
+                <span>Home</span>
+            {% endblock %}
+        </div>
+        <div id="content_container" class="container">
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
