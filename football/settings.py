@@ -105,6 +105,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'football.urls'
+AUTH_PROFILE_MODULE = 'acu.Contact'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'

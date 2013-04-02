@@ -36,3 +36,18 @@ a.menu-item{
     color: #fff;
     text-decoration: none;
 }
+
+div.form-fields div.label-container{
+    min-width: 150px;
+}
+
+div.form-fields input{
+    width: 250px;
+    padding: 3px;
+}
+
+div.form-fields textarea{
+    width: 250px;
+    height: 50px;
+    padding: 3px;
+}

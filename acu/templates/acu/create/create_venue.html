@@ -1,0 +1,36 @@
+{% extends "acu/acu_base.html" %}
+{% load url from future %}
+
+{% block breadcrumbs %}
+    <span>Top</span> > <span>Venues</span> > <span>Create New Venue</span>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>New Venue</h1>
+        <div class="span-12">
+            <form method="POST" action="." enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="span-11 error">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                <div class="form-fields">
+                    {% for field in form %}
+                        <div class="span-12">
+                            <div class="label-container">{{ field.label_tag }}</div>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="error">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

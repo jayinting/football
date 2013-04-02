@@ -1,0 +1,40 @@
+{% extends "acu/acu_base.html" %}
+{% load url from future %}
+
+{% block breadcrumbs %}
+    <span>Top</span> > <span>Venues</span>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>List of Venues</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <div><a class="table_header" href="?col=1&ot={% if col == 1 %}{{ nextOrder }}{% else %}asc{% endif %}{{ header_refer }}">Venue Name</a></div>
+                </th>
+                <th>
+                    <div><a class="table_header" href="?col=2&ot={% if col == 2 %}{{ nextOrder }}{% else %}asc{% endif %}{{ header_refer }}">Description</a></div>
+                </th>
+                <th>
+                    <div>Actions</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for venue in venues %}
+                <tr>
+                    <td colspan="1">{{ venue.name }}</td>
+                    <td colspan="1">{{ venue.description }}</td>
+                    <td>Click</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if is_paginated %}
+            {% include "acu/lists/list_pagination.html" %}
+        {% endif %}
+    </div>
+{% endblock %}

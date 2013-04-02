@@ -32,35 +32,32 @@
                     </li>
                     <li>
                         <a class="fNiv menu-item">Events</a>
-                        <ul>
-                            <li class="arrow"></li>
-                            <li><a class="menu-item">Test1</a></li>
-                            <li><a class="menu-item">Test2</a></li>
-                        </ul>
+                        {% if user.get_profile.is_admin %}
+                            <ul>
+                                <li class="arrow"></li>
+                                <li><a class="menu-item">Event Listing</a></li>
+                                <li><a class="menu-item">Add New Event</a></li>
+                            </ul>
+                        {% endif %}
                     </li>
                     <li>
-                        <a class="fNiv menu-item">Teams</a>
-                        <ul>
-                            <li class="arrow"></li>
-                            <li><a class="menu-item">Test1</a></li>
-                            <li><a class="menu-item">Test2</a></li>
-                        </ul>
+                        <a class="fNiv menu-item">Venues</a>
+                        {% if user.get_profile.is_admin %}
+                            <ul>
+                                <li class="arrow"></li>
+                                <li><a class="menu-item" href="{% url 'acu:ListVenue_View' %}">Venue Listing</a></li>
+                                <li><a class="menu-item" href="{% url 'acu:CreateVenue_View' %}">Add New Venue</a></li>
+                            </ul>
+                        {% endif %}
                     </li>
                     <li>
                         <a class="fNiv menu-item">Games</a>
-                        <ul>
-                            <li class="arrow"></li>
-                            <li><a class="menu-item">Test1</a></li>
-                            <li><a class="menu-item">Test2</a></li>
-                        </ul>
                     </li>
                     <li>
-                        <a class="fNiv menu-item">Players</a>
-                        <ul>
-                            <li class="arrow"></li>
-                            <li><a class="menu-item" href="{% url 'acu:CreatePlayer_View' %}">Create Player</a></li>
-                            <li><a class="menu-item">Test2</a></li>
-                        </ul>
+                        <a class="fNiv menu-item">Teams</a>
+                    </li>
+                    <li>
+                        <a class="fNiv menu-item" href="{% url 'acu:Index_View' %}">Contact</a>
                     </li>
                 </ul>
             </div>

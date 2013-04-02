@@ -15,10 +15,17 @@ urlpatterns = patterns('',
         name="Index_View"),
 
     #--------------------------------------------------------------------------------------------------
+    # List Views
+    #--------------------------------------------------------------------------------------------------
+    url(r'^venues/$',
+        login_required(ListVenue_View.as_view()),
+        name="ListVenue_View"),
+
+    #--------------------------------------------------------------------------------------------------
     # Create/Edit Views
     #--------------------------------------------------------------------------------------------------
-    url(r'^player/create/$',
-        login_required(CreatePlayer_View.as_view()),
-        name="CreatePlayer_View"),
+    url(r'^venues/create/$',
+        login_required(CreateVenue_View.as_view()),
+        name="CreateVenue_View"),
 
 )

@@ -1,0 +1,27 @@
+<div class="pager">
+    <em>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} in {{ page_obj.paginator.count }} results</em>
+
+    <ul id="pagination">
+        <li>
+
+            {% if page_obj.has_previous %}
+                <a class="page" href="?page={{page_obj.previous_page_number}}{{extra_refer}}">Prev</a>
+            {% endif %}
+
+
+            {% for page in page_obj.paginator.page_range %}
+                {% ifequal page_obj.number page %}
+                    <span class="currentpage">{{ page }}</span>
+                {% else %}
+                    <a class="page" href="?page={{page}}{{extra_refer}}">{{ page }}</a>
+                {% endifequal %}
+            {% endfor %}
+
+
+            {% if page_obj.has_next %}
+                <a class="page" href="?page={{page_obj.next_page_number}}{{extra_refer}}">Next</a>
+            {% endif %}
+
+        </li>
+    </ul><!-- /pagination" -->
+</div><!-- /pager" -->

@@ -1,12 +1,14 @@
 __author__ = 'jay'
 
 from django.views.generic import (TemplateView, FormView, CreateView, UpdateView, ListView, DetailView)
+from django.core.urlresolvers import reverse
 
 from acu import models as acuMod
 
-class CreatePlayer_View(CreateView):
-    model = acuMod.Player
-    template_name = "acu/create_player.html"
+class CreateVenue_View(CreateView):
+    model = acuMod.Venue
+    template_name = "acu/create/create_venue.html"
+    success_url = '/'
 
     def form_invalid(self, form):
-        return super(CreatePlayer_View, self).form_invalid(form)
+        return super(CreateVenue_View, self).form_invalid(form)
